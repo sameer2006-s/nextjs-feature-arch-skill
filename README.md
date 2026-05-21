@@ -1,4 +1,4 @@
-<div align="center">
+
 
 # nextjs-feature-architecture
 
@@ -6,15 +6,16 @@
 
 Feature slices · RSC · Zod · Server Actions · repositories & services
 
-<br />
+  
 
-[![Agent Skills](https://img.shields.io/badge/Agent_Skills-compatible-5b21b6?style=flat-square)](https://agentskills.io)
-[![Skills CLI](https://img.shields.io/badge/CLI-vercel--labs%2Fskills-black?style=flat-square)](https://github.com/vercel-labs/skills)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+
+[Agent Skills](https://agentskills.io)
+[Skills CLI](https://github.com/vercel-labs/skills)
+[License: MIT](LICENSE)
 
 [Install](#install) · [Usage](#usage) · [Examples](#example-prompts) · [Layout](#repository-layout)
 
-</div>
+
 
 ---
 
@@ -25,20 +26,21 @@ Works with [Cursor](https://cursor.com), [Claude Code](https://code.claude.com),
 ## Install
 
 ```bash
-npx skills add sameer2006-s/nextjs-feature-arch-skill -y
+npx skills add sameer2006-s/nextjs-feature-arch-skill
 ```
 
-| Scope | Command |
-|-------|---------|
-| This project | `npx skills add sameer2006-s/nextjs-feature-arch-skill -y` |
-| All projects | `npx skills add sameer2006-s/nextjs-feature-arch-skill -g -y` |
-| Preview | `npx skills add sameer2006-s/nextjs-feature-arch-skill --list` |
-| One agent | `npx skills add sameer2006-s/nextjs-feature-arch-skill -a <agent> -y` |
+
+| Scope        | Command                                                               |
+| ------------ | --------------------------------------------------------------------- |
+| This project | `npx skills add sameer2006-s/nextjs-feature-arch-skill -y`            |
+| All projects | `npx skills add sameer2006-s/nextjs-feature-arch-skill -g -y`         |
+| Preview      | `npx skills add sameer2006-s/nextjs-feature-arch-skill --list`        |
+| One agent    | `npx skills add sameer2006-s/nextjs-feature-arch-skill -a <agent> -y` |
+
 
 **Requires:** Node.js 18+ · a skills-capable agent
 
-<details>
-<summary>Clone and install locally</summary>
+Clone and install locally
 
 ```bash
 git clone https://github.com/sameer2006-s/nextjs-feature-arch-skill.git
@@ -46,11 +48,11 @@ cd nextjs-feature-arch-skill
 npx skills add . -y
 ```
 
-</details>
+
 
 ## Usage
 
-1. Enable the skill **`nextjs-feature-architecture`** in your agent.
+1. Enable the skill `**nextjs-feature-architecture**` in your agent.
 2. Mention it in your prompt with your task.
 3. The agent outputs **topology → architecture → code** before implementing.
 
@@ -68,21 +70,27 @@ flowchart LR
   R --> DB[(DB / API / gRPC)]
 ```
 
-| | |
-|---|---|
-| **Topologies** | Integrated · Separate-REST · Separate-gRPC · Hybrid |
-| **Reads** | Server Component → service → repository / RPC |
-| **Writes** | Client island → Server Action → service → repository / RPC |
-| **Defaults** | Server Components first · Zod at actions · client only at leaves |
+
+
+
+|                |                                                                  |
+| -------------- | ---------------------------------------------------------------- |
+| **Topologies** | Integrated · Separate-REST · Separate-gRPC · Hybrid              |
+| **Reads**      | Server Component → service → repository / RPC                    |
+| **Writes**     | Client island → Server Action → service → repository / RPC       |
+| **Defaults**   | Server Components first · Zod at actions · client only at leaves |
+
 
 ## Backend modes
 
-| Mode | When | Domain rules live in |
-|------|------|----------------------|
-| **Integrated** | Prisma / Drizzle in repo | Next.js `services/` |
-| **Separate-REST** | External HTTP API | Backend |
-| **Separate-gRPC** | Connect + protobuf | Backend |
-| **Hybrid** | Mixed per feature | Per feature (one transport each) |
+
+| Mode              | When                     | Domain rules live in             |
+| ----------------- | ------------------------ | -------------------------------- |
+| **Integrated**    | Prisma / Drizzle in repo | Next.js `services/`              |
+| **Separate-REST** | External HTTP API        | Backend                          |
+| **Separate-gRPC** | Connect + protobuf       | Backend                          |
+| **Hybrid**        | Mixed per feature        | Per feature (one transport each) |
+
 
 ## Example prompts
 
@@ -120,22 +128,27 @@ nextjs-feature-arch-skill/
     └── snippets/     REST · gRPC · auth (on demand)
 ```
 
-The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`** when the task needs them.
+The agent loads `**SKILL.md` only** up front; opens `**rules/`** and `**docs/**` when the task needs them.
 
 ## How it works
 
-| Step | What happens |
-|------|----------------|
-| **Discovery** | Agent reads `name` + `description` from `SKILL.md` |
-| **Activation** | Your prompt matches Next.js feature / refactor work |
-| **Execution** | Topology detected → architecture doc → layered implementation |
+
+| Step           | What happens                                                  |
+| -------------- | ------------------------------------------------------------- |
+| **Discovery**  | Agent reads `name` + `description` from `SKILL.md`            |
+| **Activation** | Your prompt matches Next.js feature / refactor work           |
+| **Execution**  | Topology detected → architecture doc → layered implementation |
+
 
 ## Contributing
 
 Contributions welcome. Keep `SKILL.md` under ~150 lines; extend `rules/` and `docs/snippets/` as needed.
 
-| Resource | Link |
-|----------|------|
-| Changelog | [CHANGELOG.md](CHANGELOG.md) |
+
+| Resource         | Link                           |
+| ---------------- | ------------------------------ |
+| Changelog        | [CHANGELOG.md](CHANGELOG.md)   |
 | Maintainer guide | [PUBLISHING.md](PUBLISHING.md) |
-| License | [MIT](LICENSE) |
+| License          | [MIT](LICENSE)                 |
+
+
