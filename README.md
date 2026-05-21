@@ -43,15 +43,15 @@ Works with [Cursor](https://cursor.com), [Claude Code](https://code.claude.com),
 ## Install
 
 ```bash
-npx skills add sameer2006-s/nextjs-feature-arch-skill
+npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture
 ```
 
 | Scope | Command |
 |-------|---------|
-| This project | `npx skills add sameer2006-s/nextjs-feature-arch-skill -y` |
-| All projects | `npx skills add sameer2006-s/nextjs-feature-arch-skill -g -y` |
+| This project | `npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture -y` |
+| All projects | `npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture -g -y` |
 | Preview | `npx skills add sameer2006-s/nextjs-feature-arch-skill --list` |
-| One agent | `npx skills add sameer2006-s/nextjs-feature-arch-skill -a <agent> -y` |
+| One agent | `npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture -a <agent> -y` |
 
 **Requires:** Node.js 18+ · a skills-capable agent
 
@@ -61,7 +61,7 @@ npx skills add sameer2006-s/nextjs-feature-arch-skill
 ```bash
 git clone https://github.com/sameer2006-s/nextjs-feature-arch-skill.git
 cd nextjs-feature-arch-skill
-npx skills add . -y
+npx skills add . --skill nextjs-feature-architecture -y
 ```
 
 </details>
@@ -127,18 +127,24 @@ Using nextjs-feature-architecture, refactor app/dashboard/page.tsx — it uses
 
 ## Repository layout
 
+Multi-skill repo ([`skills/`](skills/)):
+
 ```
 nextjs-feature-arch-skill/
-├── SKILL.md          ← agent entry (read first)
-├── skill.json
-├── rules/            architecture · folders · TypeScript practices
-└── docs/
-    ├── topology.md
-    ├── performance.md
-    └── snippets/     REST · gRPC · auth (on demand)
+├── README.md
+├── LICENSE
+└── skills/
+    └── nextjs-feature-architecture/
+        ├── SKILL.md          ← agent entry
+        ├── skill.json
+        ├── rules/            architecture · folders · TypeScript
+        └── docs/
+            ├── topology.md
+            ├── performance.md
+            └── snippets/     REST · gRPC · auth
 ```
 
-The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`** when the task needs them.
+The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`** when the task needs them. Add future skills as siblings under `skills/`.
 
 ## How it works
 
@@ -150,7 +156,7 @@ The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`**
 
 ## Contributing
 
-Contributions welcome. Keep `SKILL.md` under ~150 lines; extend `rules/` and `docs/snippets/` as needed.
+Contributions welcome. Add skills under `skills/<name>/`; keep each `SKILL.md` under ~150 lines.
 
 | Resource | Link |
 |----------|------|

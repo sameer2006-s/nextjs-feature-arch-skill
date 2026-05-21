@@ -1,6 +1,13 @@
 # Changelog
 
-All notable changes to this skill package. Version in [skill.json](skill.json).
+Version in `skills/nextjs-feature-architecture/skill.json`.
+
+## [1.5.0] - 2026-05-22
+
+### Changed
+
+- Multi-skill repo layout: skill moved to `skills/nextjs-feature-architecture/`
+- Install with `--skill nextjs-feature-architecture` (or `npx skills add . --list` when cloning)
 
 ## [1.4.1] - 2026-05-21
 
@@ -65,3 +72,4 @@ All notable changes to this skill package. Version in [skill.json](skill.json).
 ## [1.0.0] - 2026-05-21
 
 - Initial public skill package
+

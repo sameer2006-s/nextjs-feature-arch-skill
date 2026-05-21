@@ -1,6 +1,6 @@
 {
   "name": "nextjs-feature-architecture",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Use for Next.js App Router feature slices, RSC, Zod, Server Actions, repositories, and services. Supports Prisma, Drizzle, REST, and Connect/gRPC.",
   "entry": "SKILL.md",
   "repository": "https://github.com/sameer2006-s/nextjs-feature-arch-skill",
