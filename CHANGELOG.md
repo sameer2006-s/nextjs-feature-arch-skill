@@ -2,6 +2,24 @@
 
 All notable changes to this skill package. Version in [skill.json](skill.json).
 
+## [1.4.1] - 2026-05-21
+
+### Changed
+
+- Restored `rules/` and `docs/` folders; removed monolithic `reference.md`
+- Same TypeScript/Next.js best practices; progressive disclosure via separate files
+
+## [1.4.0] - 2026-05-21
+
+### Removed
+
+- `rules/`, `docs/`, `prompts/`, `examples/` — single lazy doc `reference.md` at repo root
+
+### Changed
+
+- Restored TypeScript & Next.js best practices: `strict`, Zod, `ActionResult`, `ServiceResult`, `useActionState`, TanStack bridges
+- `SKILL.md` stays the entry (~120 lines); all detail in `reference.md`
+
 ## [1.3.0] - 2026-05-21
 
 ### Removed

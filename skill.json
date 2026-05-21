@@ -1,7 +1,7 @@
 {
   "name": "nextjs-feature-architecture",
-  "version": "1.3.0",
-  "description": "Use for Next.js App Router feature slices, RSC, Server Actions, repositories, and services. Supports integrated DB, REST, and Connect/gRPC.",
+  "version": "1.4.1",
+  "description": "Use for Next.js App Router feature slices, RSC, Zod, Server Actions, repositories, and services. Supports Prisma, Drizzle, REST, and Connect/gRPC.",
   "entry": "SKILL.md",
   "repository": "https://github.com/sameer2006-s/nextjs-feature-arch-skill",
   "license": "MIT",
@@ -21,13 +21,13 @@
     "vertical-slice"
   ],
   "lazyDocs": [
-    "docs/snippets/grpc.md",
-    "docs/snippets/core.md",
-    "docs/snippets/auth-env.md",
+    "rules/architecture.md",
+    "rules/folder-structure.md",
+    "rules/coding-standards.md",
     "docs/topology.md",
     "docs/performance.md",
-    "examples/feature-slice-example.md",
-    "examples/refactor-client-page.md",
-    "examples/hybrid-topology.md"
+    "docs/snippets/core.md",
+    "docs/snippets/grpc.md",
+    "docs/snippets/auth-env.md"
   ]
 }

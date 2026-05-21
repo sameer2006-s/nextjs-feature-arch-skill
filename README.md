@@ -4,7 +4,7 @@
 
 **Server-first Next.js for AI agents**
 
-Feature slices · React Server Components · Server Actions · repositories & services
+Feature slices · RSC · Zod · Server Actions · repositories & services
 
 <br />
 
@@ -73,7 +73,7 @@ flowchart LR
 | **Topologies** | Integrated · Separate-REST · Separate-gRPC · Hybrid |
 | **Reads** | Server Component → service → repository / RPC |
 | **Writes** | Client island → Server Action → service → repository / RPC |
-| **Defaults** | Server Components first · validate at action boundary · client only at leaves |
+| **Defaults** | Server Components first · Zod at actions · client only at leaves |
 
 ## Backend modes
 
@@ -111,19 +111,16 @@ Using nextjs-feature-architecture, refactor app/dashboard/page.tsx — it uses
 
 ```
 nextjs-feature-arch-skill/
-├── SKILL.md              ← agent entry (read first)
+├── SKILL.md          ← agent entry (read first)
 ├── skill.json
-├── rules/                architecture · folders · TypeScript
-├── prompts/              generate & refactor prompts
-├── examples/             slice · refactor · hybrid walkthroughs
+├── rules/            architecture · folders · TypeScript practices
 └── docs/
     ├── topology.md
     ├── performance.md
-    ├── eval/             trigger test queries (maintainers)
-    └── snippets/         REST · gRPC · auth (on demand)
+    └── snippets/     REST · gRPC · auth (on demand)
 ```
 
-The agent loads **`SKILL.md` only** up front; snippet docs open when the task needs them — smaller context, faster runs.
+The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`** when the task needs them.
 
 ## How it works
 
@@ -135,7 +132,7 @@ The agent loads **`SKILL.md` only** up front; snippet docs open when the task ne
 
 ## Contributing
 
-Contributions welcome. Keep `SKILL.md` under ~150 lines; add detailed content under `docs/snippets/` and `examples/`.
+Contributions welcome. Keep `SKILL.md` under ~150 lines; extend `rules/` and `docs/snippets/` as needed.
 
 | Resource | Link |
 |----------|------|

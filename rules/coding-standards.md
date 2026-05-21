@@ -1,60 +1,71 @@
-# Coding standards
+# TypeScript & Next.js practices
 
-Match the **project’s existing** language, validation library, and naming. This skill defines **layers and boundaries**, not a mandatory TypeScript style.
+## TypeScript
 
-## Validation
+- `strict: true` in `tsconfig.json`.
+- Avoid `any` unless documented.
+- `type` for unions; `interface` for extensible objects.
+- Discriminated unions for action and service results.
 
-- Validate user input at **Server Action** (or mutation) boundaries.
-- Common in Next.js: Zod in `features/<name>/schemas/` — use another library if the repo already does.
-- Pass validated data to services; avoid duplicating checks in UI.
+## Zod
 
-## Server Actions / mutations
+- Schemas in `features/<name>/schemas/<entity>.schema.ts`.
+- Export `z.infer<typeof schema>` for input types.
+- `safeParse` at Server Action boundaries; pass validated data to services.
 
-- Mark server-only entry points (`"use server"` in TS/JS).
-- Call **services** only — no direct DB, HTTP, or RPC in the action file.
-- Return clear success/error shapes the UI can handle (match existing patterns in the repo).
-- Revalidate routes or cache tags after successful writes when using App Router caching.
+## Server Actions
+
+```typescript
+"use server";
+
+type ActionResult<T = void> =
+  | { ok: true; data?: T }
+  | { ok: false; error: string };
+```
+
+- Parse `FormData` with Zod; call services only.
+- Return `ActionResult` for expected failures (do not throw).
+- `revalidatePath` / `revalidateTag` after successful mutations.
 
 ## Services
 
-- No React or client-only imports.
-- Async orchestration: repositories (integrated/REST) or RPC clients (gRPC).
-- **Integrated:** domain rules live here.
-- **Separate:** orchestrate and map DTOs — do not reimplement backend business rules.
+- No React imports; no `"use client"`.
+- **Integrated:** domain rules here.
+- **Separate:** orchestrate only — do not duplicate backend rules.
 
-## gRPC (Separate-gRPC)
+## gRPC services
 
-- Auth and tokens on the server (e.g. `getAuthedContext()`).
-- Prefer explicit success/error results over throwing into UI for expected failures.
-- Use generated protobuf types — no hand-written proto copies.
+```typescript
+export type ServiceResult<T> =
+  | { success: true; data: T }
+  | { success: false; error: string };
+```
 
-## Server vs client components
+- `Authorization: Bearer ${accessToken}` from `getAuthedContext()`.
+- Request params: `Omit<ProtoRequest, "$typeName">`.
+- Use `getErrorMessage` in catch blocks.
 
-- Default **Server Component** for pages, layouts, and read-mostly UI.
-- **Client** only for interactivity, browser APIs, or client-only libraries.
-- Pass serializable props to client children.
-- Use `loading.tsx`, `error.tsx`, and `notFound()` where routes need them.
+## Server & client components
 
-## Client data fetching (optional)
+- Default Server Component for `page.tsx`, layouts, lists.
+- `async` pages when awaiting services.
+- `Suspense` + `loading.tsx` for slow subtrees.
+- Client: `"use client"` at file top; `useActionState` for Server Action forms.
+- TanStack Query only when server initial load + client refresh is required.
 
-- Prefer server initial load + small client islands.
-- If using TanStack Query (or similar), keep auth and RPC/HTTP on the server via action bridges when required.
-- Align query keys and hooks with existing project conventions.
+## TanStack Query
 
-## Environment & secrets
+- `queryKeys` factory with `as const` in hook file.
+- `queryFn` → Server Action / `*.queries.ts` when auth is server-only.
+- Sensible `staleTime`; pass server data as `initialData` when possible.
 
-- Centralize env validation if the project already does (`lib/env.ts` or equivalent).
-- Never expose secrets in client bundles or client-side fetch/RPC.
+## Environment
+
+- Zod in `lib/env.ts`; never import `env` in client files.
+- `NEXT_PUBLIC_*` only for browser-safe values.
 
 ## Errors
 
-- **Integrated:** map persistence errors in services; user-safe messages at the UI boundary.
-- **REST:** handle HTTP status in repositories; 404 → null when appropriate.
-- **gRPC:** map RPC errors to messages the UI can display.
-
-## Performance
-
-- Deduplicate per-request reads when the stack supports it (`React.cache`, etc.).
-- Parallelize independent reads where it helps.
-- Colocate fetches in the component that consumes the data.
-- Keep client bundles small — avoid importing server-only modules into client graphs.
+- **Integrated:** map ORM errors in services.
+- **REST:** `ApiError`; 404 → null in repositories.
+- **gRPC:** return `{ success: false, error }` — do not throw to UI.

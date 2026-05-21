@@ -1,8 +1,8 @@
-# Auth & environment (shared)
+# Auth & environment
 
-Load when creating or wiring `lib/auth`, `lib/env`, or outbound authenticated requests.
+Load when wiring `lib/auth`, `lib/env`, or authenticated outbound calls.
 
-## `lib/env.ts` (Zod-validated, server-only)
+## `lib/env.ts`
 
 ```typescript
 import { z } from "zod";
@@ -16,16 +16,15 @@ const envSchema = z.object({
 export const env = envSchema.parse(process.env);
 ```
 
-Never import `env` in `"use client"` files. Use `NEXT_PUBLIC_*` only for values safe in the browser.
+Never import `env` in `"use client"` files.
 
-## `lib/auth.ts` (pattern)
+## `lib/auth.ts`
 
 ```typescript
 import "server-only";
 
 export async function getAuthedContext(): Promise<{ accessToken: string }> {
-  // Read session from cookies / headers — match your auth library
-  const accessToken = ""; // TODO: implement
+  const accessToken = ""; // session / cookies — match your auth library
   if (!accessToken) throw new Error("Unauthorized");
   return { accessToken };
 }
@@ -36,6 +35,6 @@ export async function getServerAccessToken(): Promise<string | undefined> {
 }
 ```
 
-- **Integrated / REST:** repositories call `getServerAccessToken()` inside `apiRequest` or pass token from service.
-- **gRPC:** services attach `Authorization: Bearer ${accessToken}` per RPC in `lib/grpc/clients` callers.
-- Handle 401/403 in **middleware** or layout — not per-component redirects.
+- **REST:** `getServerAccessToken()` inside `apiRequest`.
+- **gRPC:** Bearer header per RPC in services.
+- Handle 401/403 in middleware or layout — not per-component redirects.

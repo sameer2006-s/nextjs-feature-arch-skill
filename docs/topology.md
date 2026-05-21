@@ -1,15 +1,13 @@
-# Topology (extended)
+# Topology
 
-Load only when detection is ambiguous or documenting hybrid splits.
-
-## Signals
+Load when detection is ambiguous or documenting hybrid splits.
 
 | Signal | Mode |
 |--------|------|
-| `lib/db`, Prisma/Drizzle, ORM | Integrated |
-| `API_URL`, OpenAPI, external fetch, no ORM | Separate-REST |
-| `@connectrpc/connect`, `grpc/clients`, `*_pb` | Separate-gRPC |
-| Both local DB and remote APIs | Hybrid (per feature) |
+| `lib/db`, Prisma/Drizzle | Integrated |
+| `API_URL`, no ORM | Separate-REST |
+| `@connectrpc/connect`, `*_pb` | Separate-gRPC |
+| Mixed | Hybrid (one transport per feature) |
 
 ## Integrated
 
@@ -25,12 +23,11 @@ Load only when detection is ambiguous or documenting hybrid splits.
 
 ## Separate-gRPC
 
-- `lib/grpc/clients.ts` — one transport, typed clients from `@your-org/proto`
-- Services return `{ success, data } | { success, error }`
-- TanStack hooks call `*.queries.ts` Server Actions when auth is server-only
-- `API_URL` for server; `NEXT_PUBLIC_API_URL` only when the browser must reach the gateway without secrets
+- `lib/grpc/clients.ts` — one transport, generated proto types
+- Services return `ServiceResult<T>`
+- TanStack hooks use `*.queries.ts` when auth is server-only
 
 ## Hybrid
 
-- Pick one transport per feature
-- Never mix DB + HTTP + gRPC in one repository/service file
+- One transport per feature (e.g. orders → Prisma, payments → REST)
+- Never mix DB + HTTP + gRPC in one repository or service file

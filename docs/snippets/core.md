@@ -1,8 +1,8 @@
 # Integrated & REST snippets
 
-Load for **Integrated** or **Separate-REST** work. Adapt types and validation to the repo’s stack.
+Load for **Integrated** or **Separate-REST** work.
 
-## REST: `lib/api/client.ts`
+## `lib/api/client.ts`
 
 ```typescript
 import { env } from "@/lib/env";
@@ -33,124 +33,46 @@ export async function apiRequest<T>(path: string, init?: RequestInit): Promise<T
 }
 ```
 
-## Repository (integrated)
+## Repository (integrated — Prisma)
 
 ```typescript
-// features/posts/repositories/post.repository.ts
-import { db } from "@/lib/db";
-import type { CreatePostInput } from "../schemas/post.schema";
-
 export const postRepository = {
   findById: (id: string) => db.post.findUnique({ where: { id } }),
   create: (data: CreatePostInput) => db.post.create({ data }),
 };
 ```
 
-## Repository (integrated — Drizzle)
+## Repository (REST — 404 → null)
 
 ```typescript
-// features/posts/repositories/post.repository.ts
-import { db } from "@/lib/db";
-import { posts } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import type { CreatePostInput } from "../schemas/post.schema";
-
-export const postRepository = {
-  async findById(id: string) {
-    const [row] = await db.select().from(posts).where(eq(posts.id, id));
-    return row ?? null;
-  },
-  async create(data: CreatePostInput) {
-    const [row] = await db.insert(posts).values(data).returning();
-    return row;
-  },
-};
-```
-
-## Repository (REST)
-
-```typescript
-import { apiRequest, ApiError } from "@/lib/api/client";
-import { postSchema } from "../schemas/post.schema";
-
-export const postRepository = {
-  async findById(id: string) {
-    try {
-      return postSchema.parse(await apiRequest<unknown>(`/posts/${id}`));
-    } catch (e) {
-      if (e instanceof ApiError && e.status === 404) return null;
-      throw e;
-    }
-  },
-};
-```
-
-## Service (integrated — domain rules)
-
-```typescript
-export async function createPost(input: CreatePostInput) {
-  if (await postRepository.findBySlug(input.slug)) throw new Error("Slug exists");
-  return postRepository.create(input);
-}
-```
-
-## Service (REST — thin)
-
-```typescript
-export async function createPost(input: CreatePostInput) {
-  return postRepository.create(input);
-}
-```
-
-## Server Action
-
-```typescript
-"use server";
-
-import { revalidatePath } from "next/cache";
-import { createPostSchema } from "../schemas/post.schema";
-import { createPost } from "../services/create-post.service";
-
-export async function createPostAction(_prev: unknown, formData: FormData) {
-  const parsed = createPostSchema.safeParse({
-    title: formData.get("title"),
-    slug: formData.get("slug"),
-    body: formData.get("body"),
-  });
-  if (!parsed.success) return { ok: false, error: "Invalid input" };
+async findById(id: string) {
   try {
-    const post = await createPost(parsed.data);
-    revalidatePath("/posts");
-    return { ok: true, id: post.id };
+    return postSchema.parse(await apiRequest<unknown>(`/posts/${id}`));
   } catch (e) {
-    return { ok: false, error: e instanceof Error ? e.message : "Failed" };
+    if (e instanceof ApiError && e.status === 404) return null;
+    throw e;
   }
 }
 ```
 
-## Server page + client form
+## Server Action + `useActionState`
 
 ```typescript
-// app/posts/page.tsx — Server Component
-import { listPosts } from "@/features/posts/services/list-posts.service";
-import { PostList } from "@/features/posts/components/post-list";
-import { CreatePostForm } from "@/features/posts/components/create-post-form";
-
-export default async function PostsPage() {
-  const posts = await listPosts();
-  return (
-    <>
-      <PostList posts={posts} />
-      <CreatePostForm />
-    </>
-  );
+export async function createPostAction(_prev: ActionResult | null, formData: FormData) {
+  const parsed = createPostSchema.safeParse({ title: formData.get("title") });
+  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  try {
+    const post = await createPost(parsed.data);
+    revalidatePath("/posts");
+    return { ok: true as const, data: { id: post.id } };
+  } catch (e) {
+    return { ok: false as const, error: e instanceof Error ? e.message : "Failed" };
+  }
 }
 ```
 
 ```typescript
-// create-post-form.tsx — client island
 "use client";
-
 import { useActionState } from "react";
 import { createPostAction } from "../actions/create-post.action";
 
@@ -163,20 +85,4 @@ export function CreatePostForm() {
     </form>
   );
 }
-```
-
-## Streaming
-
-```typescript
-import { Suspense } from "react";
-
-export default function Page() {
-  return (
-    <Suspense fallback={<Skeleton />}>
-      <SlowPanel />
-    </Suspense>
-  );
-}
-
-// SlowPanel.tsx — async Server Component; fetches via service inside
 ```
