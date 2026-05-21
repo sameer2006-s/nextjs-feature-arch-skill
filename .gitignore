@@ -4,4 +4,5 @@ node_modules/
 .agents/
 .cursor/
 skills-lock.json
+nextarch-workspace/
 nextjs-feature-architecture-workspace/

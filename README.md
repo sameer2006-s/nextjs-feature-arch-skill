@@ -1,8 +1,8 @@
 <div align="center">
 
-# ⚡ Next.js Feature Architecture Skill
+# ⚡ NextArch
 
-### Server-first vertical slices Skill for AI agents
+### Server-first Next.js App Router architecture for AI agents
 
 <br />
 
@@ -36,22 +36,24 @@
 
 ---
 
-An [Agent Skills](https://agentskills.io) package that keeps Next.js App Router code **consistent and scalable**: vertical slices under `features/`, minimal client islands, and clear boundaries for integrated DB, REST, or Connect/gRPC backends.
+An [Agent Skills](https://agentskills.io) package that keeps Next.js App Router code **consistent and scalable**: vertical slices under `features/`, minimal client islands, and clear boundaries for integrated DB, REST, or Connect/gRPC backends. Opinionated for layered BFF slices; **adapts on brownfield** repos via task scope and escape hatches.
 
 Works with [Cursor](https://cursor.com), [Claude Code](https://code.claude.com), [Codex](https://developers.openai.com/codex), [Windsurf](https://windsurf.com), and [50+ agents](https://github.com/vercel-labs/skills#supported-agents) via the [Skills CLI](https://github.com/vercel-labs/skills).
+
+**Repository:** [github.com/sameer2006-s/NextArch](https://github.com/sameer2006-s/NextArch)
 
 ## Install
 
 ```bash
-npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture
+npx skills add sameer2006-s/NextArch --skill nextarch -y
 ```
 
 | Scope | Command |
 |-------|---------|
-| This project | `npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture -y` |
-| All projects | `npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture -g -y` |
-| Preview | `npx skills add sameer2006-s/nextjs-feature-arch-skill --list` |
-| One agent | `npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture -a <agent> -y` |
+| This project | `npx skills add sameer2006-s/NextArch --skill nextarch -y` |
+| All projects | `npx skills add sameer2006-s/NextArch --skill nextarch -g -y` |
+| Preview | `npx skills add sameer2006-s/NextArch --list` |
+| One agent | `npx skills add sameer2006-s/NextArch --skill nextarch -a <agent> -y` |
 
 **Requires:** Node.js 18+ · a skills-capable agent
 
@@ -59,21 +61,21 @@ npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-arc
 <summary><strong>Clone and install locally</strong></summary>
 
 ```bash
-git clone https://github.com/sameer2006-s/nextjs-feature-arch-skill.git
-cd nextjs-feature-arch-skill
-npx skills add . --skill nextjs-feature-architecture -y
+git clone https://github.com/sameer2006-s/NextArch.git
+cd NextArch
+npx skills add . --skill nextarch -y
 ```
 
 </details>
 
 ## Usage
 
-1. Enable the skill **`nextjs-feature-architecture`** in your agent.
-2. Mention it in your prompt with your task.
-3. The agent outputs **topology → architecture → code** before implementing.
+1. Enable the skill **`nextarch`** (NextArch) in your agent.
+2. Mention it in your prompt — e.g. `Using nextarch, …` or `Using NextArch, …`
+3. The agent picks **Patch / Feature / Greenfield** scope and outputs a plan before code.
 
 ```text
-Using nextjs-feature-architecture, add a comments feature with Prisma.
+Using nextarch, add a comments feature with Prisma.
 ```
 
 ## What it enforces
@@ -107,54 +109,52 @@ flowchart LR
 **New feature · integrated**
 
 ```text
-Using nextjs-feature-architecture, add a comments feature: list and create
+Using nextarch, add a comments feature: list and create
 comments on a post. We use Prisma.
 ```
 
 **New feature · Connect/gRPC**
 
 ```text
-Using nextjs-feature-architecture, add an item detail page with optional
+Using nextarch, add an item detail page with optional
 client refresh. Connect RPC; proto package @acme/api.
 ```
 
 **Refactor · client-heavy page**
 
 ```text
-Using nextjs-feature-architecture, refactor app/dashboard/page.tsx — it uses
+Using nextarch, refactor app/dashboard/page.tsx — it uses
 "use client" and useEffect fetch. Move to a server-first feature slice.
 ```
 
 ## Repository layout
 
-Multi-skill repo ([`skills/`](skills/)):
-
 ```
-nextjs-feature-arch-skill/
+NextArch/
 ├── README.md
 ├── LICENSE
 └── skills/
-    └── nextjs-feature-architecture/
-        ├── SKILL.md          ← agent entry
+    └── nextarch/
+        ├── SKILL.md
         ├── skill.json
-        ├── rules/            architecture · folders · TypeScript
-        ├── docs/             topology · performance · snippets
-        └── evals/            maintainer: evals.json · trigger-eval.json
+        ├── rules/
+        ├── docs/
+        └── evals/
 ```
 
-The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`** when the task needs them. Add future skills as siblings under `skills/`.
+The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`** when needed.
 
 ## How it works
 
 | Step | What happens |
 |------|----------------|
 | **Discovery** | Agent reads `name` + `description` from `SKILL.md` |
-| **Activation** | Your prompt matches Next.js feature / refactor work |
-| **Execution** | Topology detected → architecture doc → layered implementation |
+| **Activation** | Prompt matches Next.js architecture / refactor work |
+| **Execution** | Scope → topology → plan → layered implementation |
 
 ## Contributing
 
-Contributions welcome. Add skills under `skills/<name>/`; keep each `SKILL.md` under ~150 lines.
+Contributions welcome. Add skills under `skills/<name>/`; keep each `SKILL.md` under ~165 lines.
 
 | Resource | Link |
 |----------|------|

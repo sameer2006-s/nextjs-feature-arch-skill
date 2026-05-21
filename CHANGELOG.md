@@ -1,6 +1,30 @@
 # Changelog
 
-Version in `skills/nextjs-feature-architecture/skill.json`.
+Version in `skills/nextarch/skill.json`.
+
+## [1.7.0] - 2026-05-22
+
+### Breaking
+
+- **Repository** renamed to [sameer2006-s/NextArch](https://github.com/sameer2006-s/NextArch) (was `nextjs-feature-arch-skill`)
+- **Skill id** is `nextarch` (was `nextjs-feature-architecture`)
+- Install: `npx skills add sameer2006-s/NextArch --skill nextarch -y`
+- Prompts: `Using nextarch` or `Using NextArch`
+
+### Added
+
+- **Task scope** triage: Patch / Feature / Greenfield (no full skeleton on tiny tasks)
+- **Anti-goals** — realtime, canvas UIs, tRPC/GraphQL-primary, unrequested migrations
+- [`docs/brownfield.md`](skills/nextarch/docs/brownfield.md) — extend in place, layer adoption ladder
+- [`docs/escape-hatches.md`](skills/nextarch/docs/escape-hatches.md) — tRPC, GraphQL, colocated fetch
+- Eval id 4 (brownfield badge); expanded `trigger-eval.json` near-misses
+
+### Changed
+
+- Softer positioning: default server-first, extend existing repo patterns
+- `features/` clarified as domain vertical slices (not FSD)
+- Description: do not trigger on one-line copy/CSS-only fixes
+- Rules: match repo first; optional layers; route colocation when repo already does it
 
 ## [1.6.0] - 2026-05-22
 
@@ -25,8 +49,8 @@ Version in `skills/nextjs-feature-architecture/skill.json`.
 
 ### Changed
 
-- Multi-skill repo layout: skill moved to `skills/nextjs-feature-architecture/`
-- Install with `--skill nextjs-feature-architecture`
+- Multi-skill repo layout: skill under `skills/nextarch/`
+- Install with `--skill nextarch`
 
 ## [1.4.1] - 2026-05-21
 

@@ -1,13 +1,23 @@
 # TypeScript & Next.js practices
 
+## Match the repo first
+
+Before applying defaults below, check the codebase for:
+
+- **Validation** — Zod, Valibot, ArkType, or manual checks at boundaries
+- **Results** — existing `ActionResult`, `Result`, throws, or error codes
+- **Client refresh** — TanStack Query, SWR, Relay, or none
+
+Use project conventions when present. Defaults below apply when the repo is silent.
+
 ## TypeScript
 
 - `strict: true` in `tsconfig.json`.
 - Avoid `any` unless documented.
 - `type` for unions; `interface` for extensible objects.
-- Discriminated unions for action and service results.
+- Discriminated unions for action and service results (when using result objects).
 
-## Zod
+## Zod (default validation)
 
 - Schemas in `features/<name>/schemas/<entity>.schema.ts`.
 - Export `z.infer<typeof schema>` for input types.
@@ -23,8 +33,8 @@ type ActionResult<T = void> =
   | { ok: false; error: string };
 ```
 
-- Parse `FormData` with Zod; call services only.
-- Return `ActionResult` for expected failures (do not throw).
+- Parse `FormData` with Zod (or repo validator); call services only.
+- Return `ActionResult` for expected failures (do not throw) unless repo throws by convention.
 - `revalidatePath` / `revalidateTag` after successful mutations.
 
 ## Services
@@ -43,29 +53,17 @@ export type ServiceResult<T> =
 
 - `Authorization: Bearer ${accessToken}` from `getAuthedContext()`.
 - Request params: `Omit<ProtoRequest, "$typeName">`.
-- Use `getErrorMessage` in catch blocks.
 
 ## Server & client components
 
 - Default Server Component for `page.tsx`, layouts, lists.
-- `async` pages when awaiting services.
 - `Suspense` + `loading.tsx` for slow subtrees.
-- Client: `"use client"` at file top; `useActionState` for Server Action forms.
-- TanStack Query only when server initial load + client refresh is required.
+- Client: `useActionState` for Server Action forms when applicable.
 
-## TanStack Query
+## TanStack Query (when used)
 
-- `queryKeys` factory with `as const` in hook file.
-- `queryFn` → Server Action / `*.queries.ts` when auth is server-only.
-- Sensible `staleTime`; pass server data as `initialData` when possible.
+- `queryKeys` with `as const`; `queryFn` → Server Action / `*.queries.ts` when auth is server-only.
 
 ## Environment
 
-- Zod in `lib/env.ts`; never import `env` in client files.
-- `NEXT_PUBLIC_*` only for browser-safe values.
-
-## Errors
-
-- **Integrated:** map ORM errors in services.
-- **REST:** `ApiError`; 404 → null in repositories.
-- **gRPC:** return `{ success: false, error }` — do not throw to UI.
+- Zod in `lib/env.ts` when project uses it; never import `env` in client files.

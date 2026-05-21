@@ -2,10 +2,8 @@
 
 | Skill | Description |
 |-------|-------------|
-| [nextjs-feature-architecture](nextjs-feature-architecture/) | Server-first Next.js App Router feature slices (RSC, Zod, Server Actions, repositories, REST/gRPC) |
-
-Install one skill:
+| [nextarch](nextarch/) | **NextArch** — server-first Next.js App Router feature slices |
 
 ```bash
-npx skills add sameer2006-s/nextjs-feature-arch-skill --skill nextjs-feature-architecture
+npx skills add sameer2006-s/NextArch --skill nextarch -y
 ```

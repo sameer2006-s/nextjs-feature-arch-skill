@@ -1,61 +1,58 @@
-# Maintainer guide
+# Maintainer guide — NextArch
+
+**Repository:** https://github.com/sameer2006-s/NextArch
 
 ## Layout
 
-Multi-skill repo — each skill lives under `skills/<name>/`:
-
 ```
-skills/nextjs-feature-architecture/
-  SKILL.md
-  skill.json
+skills/nextarch/
+  SKILL.md          # name: nextarch
+  skill.json        # version 1.7.0
   rules/
   docs/
-  evals/              # evals.json, trigger-eval.json
+  evals/
 ```
 
-## Pre-flight
+## Pre-flight (v1.7.0 release)
 
-- [ ] No `SKILL.md` at repo root (only under `skills/`)
-- [ ] Valid frontmatter in `skills/nextjs-feature-architecture/SKILL.md` (< 1024 chars)
-- [ ] `LICENSE` at repo root; `.agents/` and `skills-lock.json` not committed
+- [ ] `name: nextarch` in `SKILL.md` frontmatter matches `skill.json`
+- [ ] `repository` URL is `https://github.com/sameer2006-s/NextArch`
+- [ ] README install uses `npx skills add sameer2006-s/NextArch --skill nextarch -y`
+- [ ] No `skills/nextjs-feature-architecture/` folder
+- [ ] `.agents/` and `skills-lock.json` not committed
 
 ## Smoke test
 
 ```bash
 npx skills add . --list
-# → nextjs-feature-architecture
+# → nextarch
 
-npx skills add . --skill nextjs-feature-architecture -y
+npx skills add . --skill nextarch -y
 ```
 
-## Behavioral evals (skill-creator)
+## Tag release
 
 ```bash
-# Requires Python 3 + skill-creator on PATH
-cd nextjs-feature-architecture-workspace
-# Grade sample runs (or spawn subagents per skill-creator SKILL.md)
-python grade_iteration.py
-
-python -m scripts.aggregate_benchmark iteration-1 --skill-name nextjs-feature-architecture
-# from skill-creator repo root
-
-python eval-viewer/generate_review.py iteration-1 --skill-name nextjs-feature-architecture --benchmark iteration-1/benchmark.json --static iteration-1/review.html
+git tag -a v1.7.0 -m "NextArch 1.7.0: nextarch skill id, task scope, brownfield docs"
+git push origin v1.7.0
 ```
 
-## Description optimization
+Install for users:
 
 ```bash
-python -m scripts.run_loop \
-  --eval-set skills/nextjs-feature-architecture/evals/trigger-eval.json \
-  --skill-path skills/nextjs-feature-architecture \
-  --model <your-model> \
-  --max-iterations 5
+npx skills add sameer2006-s/NextArch --skill nextarch -y
 ```
 
-Apply `best_description` to `SKILL.md` frontmatter and `skill.json`.
+## Breaking changes in 1.7.0
 
-## Release
+| Before | After |
+|--------|--------|
+| Repo `nextjs-feature-arch-skill` | **`NextArch`** |
+| Skill id `nextjs-feature-architecture` | **`nextarch`** |
+| Install | `npx skills add sameer2006-s/NextArch --skill nextarch -y` |
 
-1. Bump `skill.json` and [CHANGELOG.md](CHANGELOG.md).
-2. Tag on GitHub (`v1.6.0`).
-3. [skills.sh](https://skills.sh) indexes after public installs.
+GitHub redirects from the old repo name should still work for a transition period.
+
+## skills.sh
+
+Listing updates after public installs against [sameer2006-s/NextArch](https://github.com/sameer2006-s/NextArch). No separate upload step.
