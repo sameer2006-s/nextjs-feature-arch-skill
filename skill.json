@@ -1,0 +1,28 @@
+{
+  "name": "nextjs-feature-architecture",
+  "version": "1.1.0",
+  "description": "Server-first Next.js App Router architecture with feature vertical slices, RSC, Zod, Server Actions, and repositories. Supports integrated DB, REST, and Connect/gRPC.",
+  "entry": "SKILL.md",
+  "repository": "https://github.com/sameer2006-s/nextjs-feature-arch-skill",
+  "license": "MIT",
+  "tags": [
+    "nextjs",
+    "react",
+    "app-router",
+    "server-components",
+    "feature-sliced-design",
+    "architecture",
+    "typescript",
+    "zod",
+    "server-actions",
+    "connect-rpc",
+    "clean-architecture",
+    "vertical-slice"
+  ],
+  "lazyDocs": [
+    "docs/snippets/grpc.md",
+    "docs/snippets/core.md",
+    "docs/topology.md",
+    "docs/performance.md"
+  ]
+}
