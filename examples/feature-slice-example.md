@@ -1,60 +1,42 @@
-# Example: Comments feature
+# Example: Comments feature (full slice)
 
 ## Request
 
-> Add comments: list on a post, submit new comment.
+> Add comments: list on a post, submit new comment. Prisma in repo.
 
 ## Architecture (integrated)
 
 ```markdown
 ## Topology: Integrated
-PostgreSQL via Prisma in this repo; domain rules in Next.js services.
+PostgreSQL via Prisma; domain rules in Next.js services.
 
 ## Architecture
-features/comments/{components,services,repositories,schemas,actions}
+features/comments/
+  schemas/comment.schema.ts      # validation — match project library
+  repositories/comment.repository.ts
+  services/list-comments.service.ts
+  services/create-comment.service.ts
+  actions/create-comment.action.ts
+  components/comment-list.tsx
+  components/comment-form.tsx
 app/posts/[id]/page.tsx
-
-## Data flow
-- Read: page → list-comments.service → comment.repository
-- Write: CommentForm → create-comment.action → create-comment.service → repository
 ```
 
-## Key implementation
+## Flow (no prescribed TS types)
 
-```typescript
-// app/posts/[id]/page.tsx — Server Component
-import { listComments } from "@/features/comments/services/list-comments.service";
-import { CommentList } from "@/features/comments/components/comment-list";
-import { CommentForm } from "@/features/comments/components/comment-form";
-
-export default async function PostPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const comments = await listComments(id);
-  return (
-    <>
-      <CommentList comments={comments} />
-      <CommentForm postId={id} />
-    </>
-  );
-}
-```
+1. **Page (server):** `listComments(postId)` → render list + form.
+2. **Action:** validate body/postId → `createComment` service → revalidate post route.
+3. **Service:** rules + call repository.
+4. **Repository:** Prisma only.
 
 ## Rejected pattern
 
-```typescript
-"use client";
-export default function PostPage() {
-  const [comments, setComments] = useState([]);
-  useEffect(() => { fetch("/api/comments").then(/* ... */); }, []);
-}
-```
+Client page with `useEffect` fetching `/api/comments` for data the server can load on first paint.
 
-Full page hydration, no slice, no Zod/action boundary.
+## Other topologies
 
-## REST variant
-
-Same UI. Repositories use `lib/api/client`; backend owns validation. See [docs/snippets/core.md](../docs/snippets/core.md).
-
-## gRPC variant
-
-Server read via `getItem` service → `itemApiClient`. Client refresh via `getItemQuery` action bridge — see [docs/snippets/grpc.md](../docs/snippets/grpc.md).
+| Topology | Guide |
+|----------|--------|
+| REST | [docs/snippets/core.md](../docs/snippets/core.md) |
+| gRPC | [docs/snippets/grpc.md](../docs/snippets/grpc.md) |
+| Hybrid | [hybrid-topology.md](hybrid-topology.md) |

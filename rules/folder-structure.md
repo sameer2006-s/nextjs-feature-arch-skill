@@ -30,7 +30,7 @@ middleware.ts
 | `features/<name>/` | One domain per folder; all feature code colocated |
 | `features/<name>/components/` | Feature UI; Server Component by default |
 | `features/<name>/services/` | One use-case per file: `<verb>-<entity>.service.ts` |
-| `features/<name>/schemas/` | Zod only; export inferred types |
+| `features/<name>/schemas/` | Input validation (e.g. Zod) when the project uses it |
 | `features/<name>/repositories/` | Data access only (integrated + REST) |
 | `features/<name>/actions/` | Server Actions + optional `*.queries.ts` bridges |
 | `features/<name>/hooks/` | Client hooks only; TanStack when needed |
@@ -68,7 +68,7 @@ middleware.ts
 | `repositories/` | Feature performs DB or REST I/O |
 | `actions/` | Feature has mutations or TanStack server bridges |
 | `hooks/` | Client needs refetch, polling, or optimistic UI |
-| `types/` | Domain types not inferable from Zod |
+| `types/` | Domain types not covered by schemas |
 
 Do not create empty placeholder folders.
 

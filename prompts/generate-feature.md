@@ -17,10 +17,10 @@ Using the **nextjs-feature-architecture** skill, add a **`<feature-name>`** feat
 - **Hybrid:** `<which features are local vs remote>`
 
 **Constraints:**
-- Follow [rules/](../rules/) and [templates/](../templates/).
+- Follow [rules/](../rules/); match existing validation and typing in the repo.
 - Deliver the full architecture response skeleton **before** writing code.
 - Default to Server Components; `"use client"` only for interactive islands.
-- Mutations via Server Actions + Zod in `features/<feature-name>/schemas/`.
+- Mutations via Server Actions; validate in `features/<feature-name>/schemas/` when the project uses schemas.
 
 ---
 

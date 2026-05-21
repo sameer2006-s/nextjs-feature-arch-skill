@@ -14,7 +14,7 @@ Using the **nextjs-feature-architecture** skill, refactor **`<path or area>`** t
 - [ ] Client-side calls to external API with tokens
 - [ ] Hooks importing grpc clients or `getAuthedContext`
 - [ ] Files organized by technical type instead of feature
-- [ ] Missing Zod validation at action boundaries
+- [ ] Missing input validation at mutation boundaries
 - [ ] Duplicated backend domain logic (separate topology)
 
 **Topology:** Detect from repo; state explicitly in the refactor plan.
@@ -42,5 +42,5 @@ Using the **nextjs-feature-architecture** skill, refactor **`<path or area>`** t
 5. **Separate-gRPC:** consolidate clients in `lib/grpc/clients.ts`; add Server Action bridges for hooks using server auth
 6. Remove duplicated domain logic that belongs on the backend
 7. Group orphaned files under `features/<name>/`
-8. Add Zod at action boundaries; proto types for RPC payloads
+8. Validate mutations at action boundaries; use generated proto types for RPC
 9. **Integrated:** prefer Server Actions over internal API routes for form mutations

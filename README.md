@@ -4,7 +4,7 @@
 
 **Server-first Next.js for AI agents**
 
-Feature slices · React Server Components · Zod · Server Actions · repositories & services
+Feature slices · React Server Components · Server Actions · repositories & services
 
 <br />
 
@@ -73,7 +73,7 @@ flowchart LR
 | **Topologies** | Integrated · Separate-REST · Separate-gRPC · Hybrid |
 | **Reads** | Server Component → service → repository / RPC |
 | **Writes** | Client island → Server Action → service → repository / RPC |
-| **Defaults** | Server Components first · Zod at actions · `"use client"` at leaves only |
+| **Defaults** | Server Components first · validate at action boundary · client only at leaves |
 
 ## Backend modes
 
@@ -115,12 +115,12 @@ nextjs-feature-arch-skill/
 ├── skill.json
 ├── rules/                architecture · folders · TypeScript
 ├── prompts/              generate & refactor prompts
-├── templates/            page · service · repository · schema
-├── examples/             input → output walkthrough
+├── examples/             slice · refactor · hybrid walkthroughs
 └── docs/
     ├── topology.md
     ├── performance.md
-    └── snippets/         REST · gRPC templates (on demand)
+    ├── eval/             trigger test queries (maintainers)
+    └── snippets/         REST · gRPC · auth (on demand)
 ```
 
 The agent loads **`SKILL.md` only** up front; snippet docs open when the task needs them — smaller context, faster runs.
@@ -135,7 +135,10 @@ The agent loads **`SKILL.md` only** up front; snippet docs open when the task ne
 
 ## Contributing
 
-Contributions welcome. Keep `SKILL.md` under ~150 lines; put detailed templates in `docs/snippets/`.
+Contributions welcome. Keep `SKILL.md` under ~150 lines; add detailed content under `docs/snippets/` and `examples/`.
 
-- [PUBLISHING.md](PUBLISHING.md) — maintainer checklist  
-- [LICENSE](LICENSE) — MIT
+| Resource | Link |
+|----------|------|
+| Changelog | [CHANGELOG.md](CHANGELOG.md) |
+| Maintainer guide | [PUBLISHING.md](PUBLISHING.md) |
+| License | [MIT](LICENSE) |

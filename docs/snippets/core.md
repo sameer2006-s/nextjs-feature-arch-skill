@@ -1,6 +1,6 @@
 # Integrated & REST snippets
 
-Load for **Integrated** or **Separate-REST** work. See [templates/](../../templates/) for file stubs.
+Load for **Integrated** or **Separate-REST** work. Adapt types and validation to the repo’s stack.
 
 ## REST: `lib/api/client.ts`
 
@@ -43,6 +43,27 @@ import type { CreatePostInput } from "../schemas/post.schema";
 export const postRepository = {
   findById: (id: string) => db.post.findUnique({ where: { id } }),
   create: (data: CreatePostInput) => db.post.create({ data }),
+};
+```
+
+## Repository (integrated — Drizzle)
+
+```typescript
+// features/posts/repositories/post.repository.ts
+import { db } from "@/lib/db";
+import { posts } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import type { CreatePostInput } from "../schemas/post.schema";
+
+export const postRepository = {
+  async findById(id: string) {
+    const [row] = await db.select().from(posts).where(eq(posts.id, id));
+    return row ?? null;
+  },
+  async create(data: CreatePostInput) {
+    const [row] = await db.insert(posts).values(data).returning();
+    return row;
+  },
 };
 ```
 
@@ -96,13 +117,13 @@ export async function createPostAction(_prev: unknown, formData: FormData) {
     slug: formData.get("slug"),
     body: formData.get("body"),
   });
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false, error: "Invalid input" };
   try {
     const post = await createPost(parsed.data);
     revalidatePath("/posts");
-    return { ok: true as const, id: post.id };
+    return { ok: true, id: post.id };
   } catch (e) {
-    return { ok: false as const, error: e instanceof Error ? e.message : "Failed" };
+    return { ok: false, error: e instanceof Error ? e.message : "Failed" };
   }
 }
 ```

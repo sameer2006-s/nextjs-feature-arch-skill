@@ -1,13 +1,14 @@
 # Documentation
 
-Supplementary material for the **nextjs-feature-architecture** skill. The agent loads these files only when needed.
+Supplementary material — load on demand (see [SKILL.md](../SKILL.md)).
 
 | File | When to read |
 |------|----------------|
 | [topology.md](topology.md) | Ambiguous or hybrid backend setup |
-| [performance.md](performance.md) | RSC, caching, bundle size for generated apps |
-| [snippets/core.md](snippets/core.md) | Integrated or Separate-REST implementation |
-| [snippets/grpc.md](snippets/grpc.md) | Connect/gRPC implementation |
-| [snippets/README.md](snippets/README.md) | Snippet index |
+| [performance.md](performance.md) | RSC, caching, bundle size |
+| [snippets/core.md](snippets/core.md) | Integrated or Separate-REST |
+| [snippets/grpc.md](snippets/grpc.md) | Connect/gRPC |
+| [snippets/auth-env.md](snippets/auth-env.md) | Auth tokens, `lib/env.ts` |
+| [eval/trigger-queries.example.json](eval/trigger-queries.example.json) | Description tuning (maintainers) |
 
-Start with [SKILL.md](../SKILL.md) at the repository root.
+Examples: [examples/](../examples/).

@@ -1,90 +1,60 @@
 # Coding standards
 
-## TypeScript
+Match the **project’s existing** language, validation library, and naming. This skill defines **layers and boundaries**, not a mandatory TypeScript style.
 
-- Enable `strict` in `tsconfig.json`.
-- Prohibit `any` unless documented with reason.
-- Prefer `type` for unions/aliases; `interface` for extensible object shapes.
-- Use discriminated unions for action and service results.
+## Validation
 
-## Zod
+- Validate user input at **Server Action** (or mutation) boundaries.
+- Common in Next.js: Zod in `features/<name>/schemas/` — use another library if the repo already does.
+- Pass validated data to services; avoid duplicating checks in UI.
 
-- Define schemas in `features/<name>/schemas/<entity>.schema.ts`.
-- Export `z.infer<typeof schema>` as the input/output type name.
-- Validate at Server Action boundaries with `safeParse`.
-- Pass validated data to services — do not re-parse in services unless transforming external DTOs.
+## Server Actions / mutations
 
-## Server Actions
-
-```typescript
-"use server";
-
-type ActionResult =
-  | { ok: true; data: T }
-  | { ok: false; error: string };
-```
-
-- Parse `FormData` or arguments with Zod.
-- Call services only.
-- Return `ActionResult` — do not throw for expected validation failures.
-- Call `revalidatePath` / `revalidateTag` after successful mutations.
+- Mark server-only entry points (`"use server"` in TS/JS).
+- Call **services** only — no direct DB, HTTP, or RPC in the action file.
+- Return clear success/error shapes the UI can handle (match existing patterns in the repo).
+- Revalidate routes or cache tags after successful writes when using App Router caching.
 
 ## Services
 
-- No React imports.
-- No `"use client"`.
-- Async functions only.
-- Integrated: enforce domain rules here.
-- Separate: orchestrate only — do not duplicate backend rules.
+- No React or client-only imports.
+- Async orchestration: repositories (integrated/REST) or RPC clients (gRPC).
+- **Integrated:** domain rules live here.
+- **Separate:** orchestrate and map DTOs — do not reimplement backend business rules.
 
-## gRPC services (Separate-gRPC)
+## gRPC (Separate-gRPC)
 
-```typescript
-export type ServiceResult<T> =
-  | { success: true; data: T }
-  | { success: false; error: string };
-```
+- Auth and tokens on the server (e.g. `getAuthedContext()`).
+- Prefer explicit success/error results over throwing into UI for expected failures.
+- Use generated protobuf types — no hand-written proto copies.
 
-- Attach `Authorization: Bearer ${accessToken}` from `getAuthedContext()`.
-- Use `getErrorMessage(error, fallback)` in catch blocks.
-- Request params: `Omit<ProtoRequest, "$typeName">`.
+## Server vs client components
 
-## Server Components
+- Default **Server Component** for pages, layouts, and read-mostly UI.
+- **Client** only for interactivity, browser APIs, or client-only libraries.
+- Pass serializable props to client children.
+- Use `loading.tsx`, `error.tsx`, and `notFound()` where routes need them.
 
-- Default for `page.tsx`, `layout.tsx`, and list/display components.
-- Use `async` when awaiting services.
-- Use `Suspense` + `loading.tsx` for streaming slow subtrees.
-- Pass only serializable props to client children.
+## Client data fetching (optional)
 
-## Client Components
+- Prefer server initial load + small client islands.
+- If using TanStack Query (or similar), keep auth and RPC/HTTP on the server via action bridges when required.
+- Align query keys and hooks with existing project conventions.
 
-- File must start with `"use client"`.
-- Keep as small as possible — forms, buttons, filters, live refresh islands.
-- Use `useActionState` for forms calling Server Actions.
-- Use TanStack Query only when server-first initial load + client refresh is required.
+## Environment & secrets
 
-## TanStack Query (when used)
+- Centralize env validation if the project already does (`lib/env.ts` or equivalent).
+- Never expose secrets in client bundles or client-side fetch/RPC.
 
-- Define `queryKeys` factory in the hook file.
-- `queryFn` must call a Server Action or `"use server"` queries module when the underlying service uses server auth.
-- Do not set `staleTime: 0` by default without reason.
-- Prefer passing server-fetched initial data from parent Server Component.
+## Errors
 
-## Environment
-
-- Validate with Zod in `lib/env.ts`.
-- Never read secret env vars in `"use client"` files.
-- `NEXT_PUBLIC_*` only for values safe in the browser.
-
-## Error handling
-
-- Integrated: map ORM errors in services; user-safe messages in actions.
-- REST: `ApiError` in `lib/api/client`; 404 → null where appropriate in repositories.
-- gRPC: never throw to UI — return `{ success: false, error }`.
+- **Integrated:** map persistence errors in services; user-safe messages at the UI boundary.
+- **REST:** handle HTTP status in repositories; 404 → null when appropriate.
+- **gRPC:** map RPC errors to messages the UI can display.
 
 ## Performance
 
-- Use `React.cache()` in services for per-request deduplication.
-- Parallelize independent reads with `Promise.all`.
-- Colocate fetches in the Server Component that consumes the data.
-- Minimize client bundle: avoid pulling server-only deps into client graphs.
+- Deduplicate per-request reads when the stack supports it (`React.cache`, etc.).
+- Parallelize independent reads where it helps.
+- Colocate fetches in the component that consumes the data.
+- Keep client bundles small — avoid importing server-only modules into client graphs.

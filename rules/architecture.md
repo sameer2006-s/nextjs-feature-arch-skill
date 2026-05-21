@@ -26,12 +26,12 @@ Enforce these on every generation and refactor.
 
 ### Actions (`features/*/actions/`)
 
-- **Must:** `"use server"`, Zod-parse input, call services, `revalidatePath` / `revalidateTag` after mutations.
+- **Must:** server-only entry, validate input (project convention), call services, revalidate after mutations when using App Router cache.
 - **Must not:** contain SQL/ORM/HTTP/RPC calls, complex domain logic, React imports.
 
 ### Services (`features/*/services/`)
 
-- **Must:** async pure functions; orchestrate repositories or RPC; map DTOs to UI shapes; return discriminated unions for gRPC (`{ success, data } | { success, error }`).
+- **Must:** async functions; orchestrate repositories or RPC; map DTOs to UI shapes; clear success/error results for gRPC (avoid throwing expected failures to UI).
 - **Must not:** import React, use `"use client"`, be imported from `"use client"` hooks when using server-only auth (use action bridge).
 
 ### Repositories (`features/*/repositories/`)
@@ -49,7 +49,7 @@ Enforce these on every generation and refactor.
 | Concern | Integrated | Separate |
 |---------|------------|----------|
 | Domain invariants | Next.js services | External backend only |
-| Form validation | Zod in actions | Zod in actions |
+| Form validation | At action boundary | At action boundary |
 | Auth on outbound calls | lib/auth → repos | lib/api or Bearer in gRPC services |
 | Transport errors | Map in services/repos | REST: repos + ApiError; gRPC: services + getErrorMessage |
 
@@ -69,6 +69,13 @@ Enforce these on every generation and refactor.
 Acceptable only for: webhooks, OAuth callbacks, public API owned by this app, streaming uploads, BFF when Server Actions cannot carry payload (separate).
 
 Default mutation path: Server Action → service → repository/RPC.
+
+## Errors, loading, and not-found
+
+- Colocate `loading.tsx` and `error.tsx` with routes that stream or fail independently.
+- Use `notFound()` when entity missing after service returns null (REST 404 → null pattern).
+- Map transport errors in repositories (REST) or services (gRPC unions, integrated throws).
+- Show user-safe messages in UI — never raw stack traces or internal API bodies.
 
 ## Anti-patterns (auto-reject)
 

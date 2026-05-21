@@ -6,5 +6,6 @@ Load **one** file based on topology — do not read all.
 |----------|------|
 | Integrated or Separate-REST | [core.md](core.md) |
 | Separate-gRPC | [grpc.md](grpc.md) |
+| Auth, env, tokens | [auth-env.md](auth-env.md) |
 
-Performance guidance for generated apps: [../performance.md](../performance.md).
+Performance: [../performance.md](../performance.md).
