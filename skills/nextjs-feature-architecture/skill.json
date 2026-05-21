@@ -1,7 +1,7 @@
 {
   "name": "nextjs-feature-architecture",
-  "version": "1.5.0",
-  "description": "Use for Next.js App Router feature slices, RSC, Zod, Server Actions, repositories, and services. Supports Prisma, Drizzle, REST, and Connect/gRPC.",
+  "version": "1.6.0",
+  "description": "Use whenever building or refactoring Next.js App Router apps with features/, server-first loading, Zod, Server Actions, repositories, and services (Prisma, Drizzle, REST, Connect/gRPC). Use for useEffect fetch refactors, vertical slices, TanStack server bridges, hybrid DB+API — even if the user does not name this skill. Not for styling-only, non-Next.js, or backend-only work.",
   "entry": "SKILL.md",
   "repository": "https://github.com/sameer2006-s/nextjs-feature-arch-skill",
   "license": "MIT",
@@ -11,6 +11,7 @@
     "app-router",
     "server-components",
     "feature-sliced-design",
+    "folder-structure",
     "architecture",
     "typescript",
     "zod",
@@ -18,7 +19,12 @@
     "connect-rpc",
     "prisma",
     "drizzle",
-    "vertical-slice"
+    "vertical-slice",
+    "tanstack-server-bridge",
+    "feature-folders",
+    "feature-structure",
+    "feature-architecture",
+    "feature-based-architecture"
   ],
   "lazyDocs": [
     "rules/architecture.md",

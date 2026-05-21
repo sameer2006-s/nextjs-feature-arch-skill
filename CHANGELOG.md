@@ -2,12 +2,31 @@
 
 Version in `skills/nextjs-feature-architecture/skill.json`.
 
+## [1.6.0] - 2026-05-22
+
+### Added
+
+- Pushier skill `description` for better triggering (useEffect refactors, feature folders, hybrid, gRPC)
+- Narrative **Examples** section in `SKILL.md` (integrated, refactor, gRPC)
+- `evals/evals.json` — 3 behavioral evals with expectations
+- `evals/trigger-eval.json` — 20 trigger queries for description tuning
+
+### Changed
+
+- Clarified out-of-scope: server-first `app/` refactors, not net-new `pages/` apps
+- Deduplicated `rules/architecture.md` and `docs/topology.md` (SKILL.md is canonical summary)
+- `docs/README.md` links maintainer evals
+
+### Maintainer
+
+- Eval workspace: `nextjs-feature-architecture-workspace/iteration-1/` (benchmark + sample runs)
+
 ## [1.5.0] - 2026-05-22
 
 ### Changed
 
 - Multi-skill repo layout: skill moved to `skills/nextjs-feature-architecture/`
-- Install with `--skill nextjs-feature-architecture` (or `npx skills add . --list` when cloning)
+- Install with `--skill nextjs-feature-architecture`
 
 ## [1.4.1] - 2026-05-21
 
@@ -24,52 +43,33 @@ Version in `skills/nextjs-feature-architecture/skill.json`.
 
 ### Changed
 
-- Restored TypeScript & Next.js best practices: `strict`, Zod, `ActionResult`, `ServiceResult`, `useActionState`, TanStack bridges
-- `SKILL.md` stays the entry (~120 lines); all detail in `reference.md`
+- Restored TypeScript & Next.js best practices
+- `SKILL.md` stays the entry; detail in `reference.md`
 
 ## [1.3.0] - 2026-05-21
 
 ### Removed
 
-- `templates/` directory — lighter install; patterns live in `docs/snippets/` and `examples/` only
+- `templates/` directory
 
 ### Changed
 
-- `SKILL.md` and `rules/coding-standards.md` — layer boundaries over strict TypeScript/Zod conventions
-- Descriptions de-emphasize Zod; agents should match repo style
-- Examples use flow descriptions instead of copy-paste TS stubs
+- Layer boundaries over strict TypeScript-only conventions
 
 ## [1.2.0] - 2026-05-21
 
 ### Added
 
-- Templates: `action.ts`, `queries.action.ts`, `use-query.ts`
-- `docs/snippets/auth-env.md` for auth and environment patterns
-- Drizzle repository example in `docs/snippets/core.md`
-- Examples: `hybrid-topology.md`, `refactor-client-page.md`
-- Expanded `feature-slice-example.md` with schema and action
-- `docs/eval/trigger-queries.example.json` for description tuning
-- Gotchas, result-type table, checkbox review list in `SKILL.md`
-- Error/loading/not-found guidance in `rules/architecture.md`
-
-### Changed
-
-- Improved `description` frontmatter for triggering (App Router, Prisma, Drizzle, migration)
-- Progressive disclosure: when to load each rule file
-- Anti-patterns as scannable bullets
+- Templates, auth-env snippet, examples, trigger eval sample
 
 ## [1.1.1] - 2026-05-21
 
 - Optimized description for Agent Skills triggering
-- Professional README and generic agent install
 
 ## [1.1.0] - 2026-05-21
 
-- Flat single-skill repo layout
-- Progressive disclosure via `docs/snippets/`
-- Lean `SKILL.md` entry (~107 lines)
+- Flat single-skill repo layout; progressive disclosure via snippets
 
 ## [1.0.0] - 2026-05-21
 
 - Initial public skill package
-

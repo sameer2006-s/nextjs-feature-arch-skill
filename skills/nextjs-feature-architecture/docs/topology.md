@@ -1,13 +1,15 @@
-# Topology
+# Topology (extended)
 
-Load when detection is ambiguous or documenting hybrid splits.
+Use when SKILL.md detection is ambiguous or you are splitting a **hybrid** app.
 
-| Signal | Mode |
-|--------|------|
-| `lib/db`, Prisma/Drizzle | Integrated |
-| `API_URL`, no ORM | Separate-REST |
-| `@connectrpc/connect`, `*_pb` | Separate-gRPC |
-| Mixed | Hybrid (one transport per feature) |
+## Decision guide
+
+| If you see… | Choose |
+|-------------|--------|
+| Prisma/Drizzle + `lib/db` | Integrated for that feature |
+| `API_URL`, OpenAPI client, no ORM | Separate-REST for that feature |
+| `@connectrpc/connect`, `*_pb`, `grpc/clients` | Separate-gRPC for that feature |
+| Orders in Postgres + payments via REST API | Hybrid — two features, two transports |
 
 ## Integrated
 
@@ -27,7 +29,8 @@ Load when detection is ambiguous or documenting hybrid splits.
 - Services return `ServiceResult<T>`
 - TanStack hooks use `*.queries.ts` when auth is server-only
 
-## Hybrid
+## Hybrid examples
 
-- One transport per feature (e.g. orders → Prisma, payments → REST)
-- Never mix DB + HTTP + gRPC in one repository or service file
+- `features/orders/` → Prisma repository only
+- `features/payments/` → `apiRequest` repository only
+- Never import `db` and `apiRequest` in the same repository file

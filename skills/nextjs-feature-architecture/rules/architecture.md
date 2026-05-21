@@ -1,30 +1,12 @@
 # Architecture rules
 
+See [SKILL.md](../SKILL.md) for topology table, layer summary, and checklist. This file adds enforcement detail only.
+
 ## Topology-first
 
-1. Detect: Integrated, Separate-REST, Separate-gRPC, or Hybrid.
-2. State topology in the architecture response.
-3. Never mix DB, HTTP, and gRPC in one repository or service file.
-
-| Topology | Chain |
-|----------|-------|
-| Integrated | UI → actions → services → repositories → DB |
-| Separate-REST | UI → actions → services → repositories → HTTP API |
-| Separate-gRPC | UI → actions → services → *ApiClient → backend |
-| Hybrid | One chain per feature |
-
-## Layer rules
-
-| Layer | Must | Must not |
-|-------|------|----------|
-| UI | Render, call actions, serializable props | `lib/db`, `lib/api`, `*ApiClient`, domain rules |
-| actions | `"use server"`, Zod `safeParse`, call services, revalidate | SQL/HTTP/RPC, domain logic, React |
-| services | Async orchestration, map DTOs, gRPC result unions | React, `"use client"` |
-| repositories | CRUD / HTTP mapping | Business rules, React |
-| hooks | TanStack via `*.queries.ts` bridges | `*ApiClient`, `getAuthedContext` |
-
-**Reads:** Server Component → service → repository/RPC.  
-**Writes:** client island → Server Action → service → repository/RPC.
+1. Detect: Integrated, Separate-REST, Separate-gRPC, or Hybrid (state in response).
+2. Never mix DB, HTTP, and gRPC in one repository or service file.
+3. Hybrid: one transport chain per feature — see [docs/topology.md](../docs/topology.md).
 
 ## Logic ownership
 
@@ -44,6 +26,11 @@ Webhooks, OAuth, public API, streaming, BFF when Server Actions cannot carry pay
 - `notFound()` when service returns null (REST 404 → null).
 - User-safe messages in UI — never raw stacks or API bodies.
 
+## Cross-feature
+
+- Do not import `features/a` internals from `features/b`.
+- Share via `types/` or shared modules — not via feature component imports.
+
 ## Anti-patterns (auto-reject)
 
 - Client pages fetching server-loadable data
@@ -51,3 +38,4 @@ Webhooks, OAuth, public API, streaming, BFF when Server Actions cannot carry pay
 - Duplicating backend validation (separate topologies)
 - `"use client"` on `app/**/page.tsx` for data loading
 - Global client store mirroring server lists
+- Hooks importing `*ApiClient` or `getAuthedContext` (use `*.queries.ts`)

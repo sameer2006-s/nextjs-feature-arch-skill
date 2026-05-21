@@ -138,10 +138,8 @@ nextjs-feature-arch-skill/
         ├── SKILL.md          ← agent entry
         ├── skill.json
         ├── rules/            architecture · folders · TypeScript
-        └── docs/
-            ├── topology.md
-            ├── performance.md
-            └── snippets/     REST · gRPC · auth
+        ├── docs/             topology · performance · snippets
+        └── evals/            maintainer: evals.json · trigger-eval.json
 ```
 
 The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`** when the task needs them. Add future skills as siblings under `skills/`.

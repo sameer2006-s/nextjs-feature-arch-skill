@@ -1,0 +1,82 @@
+[
+  {
+    "query": "ok so we have a next app router project and i want to move our dashboard page off useEffect fetch — it's all client side right now in app/dashboard/page.tsx pulling from /api/stats",
+    "should_trigger": true
+  },
+  {
+    "query": "add a comments feature with prisma, list + create on post pages, we're on app router",
+    "should_trigger": true
+  },
+  {
+    "query": "organize our next.js codebase into feature folders under features/ with services and repositories, we have drizzle",
+    "should_trigger": true
+  },
+  {
+    "query": "connect rpc backend @acme/api — need item detail server rendered plus tanstack refresh on the client",
+    "should_trigger": true
+  },
+  {
+    "query": "hybrid setup: orders in postgres via prisma but billing hits external REST API_URL — how should features/ be split",
+    "should_trigger": true
+  },
+  {
+    "query": "refactor this form to use server actions with zod validation in our next 15 app",
+    "should_trigger": true
+  },
+  {
+    "query": "we're migrating client-heavy app router pages to server components and feature slices, where should domain logic live",
+    "should_trigger": true
+  },
+  {
+    "query": "set up lib/grpc/clients.ts and feature services for our connect/protobuf api",
+    "should_trigger": true
+  },
+  {
+    "query": "fix tailwind spacing on the settings page hero section",
+    "should_trigger": false
+  },
+  {
+    "query": "write an express mongodb REST API for user profiles",
+    "should_trigger": false
+  },
+  {
+    "query": "add trpc router for posts in our next app",
+    "should_trigger": false
+  },
+  {
+    "query": "next.js middleware only: add locale prefix /en /fr for i18n routing",
+    "should_trigger": false
+  },
+  {
+    "query": "create a reusable Button component with storybook variants",
+    "should_trigger": false
+  },
+  {
+    "query": "graphql codegen for our next dashboard",
+    "should_trigger": false
+  },
+  {
+    "query": "python script to merge two csv files",
+    "should_trigger": false
+  },
+  {
+    "query": "vue 3 pinia store for shopping cart",
+    "should_trigger": false
+  },
+  {
+    "query": "hydration mismatch error on login page — add suppressHydrationWarning",
+    "should_trigger": false
+  },
+  {
+    "query": "migrate our entire site from pages/ to app/ directory step by step",
+    "should_trigger": false
+  },
+  {
+    "query": "add dark mode css variables to globals.css",
+    "should_trigger": false
+  },
+  {
+    "query": "bun hono API server with zod openapi, no frontend",
+    "should_trigger": false
+  }
+]

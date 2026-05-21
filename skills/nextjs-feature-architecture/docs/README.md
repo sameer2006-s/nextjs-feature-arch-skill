@@ -9,3 +9,5 @@
 | [snippets/auth-env.md](snippets/auth-env.md) | Auth tokens, env |
 
 Rules: [rules/](../rules/) — architecture, folders, TypeScript practices.
+
+Maintainer evals: [evals/](../evals/) (`evals.json`, `trigger-eval.json`) — not required at agent runtime.
