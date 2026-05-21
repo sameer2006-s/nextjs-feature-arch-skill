@@ -1,11 +1,12 @@
 ---
 name: nextjs-feature-architecture
 description: >-
-  Enforces server-first Next.js App Router architecture with feature-based
-  vertical slices, RSC, Zod, Server Actions, repositories, and services.
-  Supports integrated DB, separate REST, and Connect/gRPC backends. Use when
-  building or refactoring Next.js apps, feature folders, Server Actions,
-  Connect RPC, protobuf, or TanStack Query with server bridges.
+  Use this skill when building or refactoring Next.js App Router apps with
+  feature-based vertical slices, Server Components, Zod, Server Actions,
+  repositories, and services — including in-repo DB (Prisma/Drizzle),
+  external REST APIs, or Connect/gRPC backends. Applies to feature folders,
+  layer boundaries, protobuf/Connect RPC, and TanStack Query with server
+  bridges. Do not use for non-Next.js projects or styling-only UI work.
 ---
 
 # Next.js Feature-Based Architecture
