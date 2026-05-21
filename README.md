@@ -1,61 +1,44 @@
+<div align="center">
+
 # nextjs-feature-architecture
 
-[![Agent Skills](https://img.shields.io/badge/Agent_Skills-compatible-5b21b6)](https://agentskills.io)
-[![Skills CLI](https://img.shields.io/badge/Install-npx_skills-000)](https://github.com/vercel-labs/skills)
+**Server-first Next.js for AI agents**
 
-**Server-first Next.js architecture for AI coding agents** — feature slices, React Server Components, Zod, Server Actions, repositories, and services. Works with integrated databases, external REST APIs, and Connect/gRPC backends.
+Feature slices · React Server Components · Zod · Server Actions · repositories & services
+
+<br />
+
+[![Agent Skills](https://img.shields.io/badge/Agent_Skills-compatible-5b21b6?style=flat-square)](https://agentskills.io)
+[![Skills CLI](https://img.shields.io/badge/CLI-vercel--labs%2Fskills-black?style=flat-square)](https://github.com/vercel-labs/skills)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+
+[Install](#install) · [Usage](#usage) · [Examples](#example-prompts) · [Layout](#repository-layout)
+
+</div>
 
 ---
 
-## Quick start
+An [Agent Skills](https://agentskills.io) package that keeps Next.js App Router code **consistent and scalable**: vertical slices under `features/`, minimal client islands, and clear boundaries for integrated DB, REST, or Connect/gRPC backends.
 
-**1. Install** (from the project where you build Next.js apps):
+Works with [Cursor](https://cursor.com), [Claude Code](https://code.claude.com), [Codex](https://developers.openai.com/codex), [Windsurf](https://windsurf.com), and [50+ agents](https://github.com/vercel-labs/skills#supported-agents) via the [Skills CLI](https://github.com/vercel-labs/skills).
+
+## Install
 
 ```bash
 npx skills add sameer2006-s/nextjs-feature-arch-skill -y
 ```
 
-**2. Enable the skill** in your agent (name: `nextjs-feature-architecture`).
+| Scope | Command |
+|-------|---------|
+| This project | `npx skills add sameer2006-s/nextjs-feature-arch-skill -y` |
+| All projects | `npx skills add sameer2006-s/nextjs-feature-arch-skill -g -y` |
+| Preview | `npx skills add sameer2006-s/nextjs-feature-arch-skill --list` |
+| One agent | `npx skills add sameer2006-s/nextjs-feature-arch-skill -a <agent> -y` |
 
-**3. Prompt** — mention the skill and your task:
+**Requires:** Node.js 18+ · a skills-capable agent
 
-```text
-Using nextjs-feature-architecture, add a comments feature with Prisma.
-```
-
-The agent will detect your backend topology, outline the architecture, then implement under `features/<name>/`.
-
----
-
-## What you get
-
-| Capability | Detail |
-|------------|--------|
-| **Topology detection** | Integrated (Prisma/Drizzle), Separate-REST, Separate-gRPC, or Hybrid |
-| **Layered structure** | UI → actions → services → repositories / RPC |
-| **Server-first defaults** | Minimal `"use client"`; interactive leaves only |
-| **Architecture-first** | Topology and folder plan before code |
-| **Copy-paste prompts** | `prompts/generate-feature.md`, `prompts/refactor-architecture.md` |
-| **Templates** | Page, service, repository, schema stubs |
-
-Compatible with any agent that supports [Agent Skills](https://agentskills.io), installed via the [Skills CLI](https://github.com/vercel-labs/skills) (Cursor, Claude Code, Codex, Windsurf, and [50+ others](https://github.com/vercel-labs/skills#supported-agents)).
-
----
-
-## Install options
-
-| Goal | Command |
-|------|---------|
-| **This project** (team default) | `npx skills add sameer2006-s/nextjs-feature-arch-skill -y` |
-| **All projects** (your machine) | `npx skills add sameer2006-s/nextjs-feature-arch-skill -g -y` |
-| **Preview only** | `npx skills add sameer2006-s/nextjs-feature-arch-skill --list` |
-| **One agent** | `npx skills add sameer2006-s/nextjs-feature-arch-skill -a <agent> -y` |
-
-**Requirements:** Node.js 18+ and a skills-capable agent.
-
-On first install, the CLI detects which agents you have and installs to the right folder (for example `.agents/skills/`, `.cursor/skills/`, or `.claude/skills/`). Use `-a <agent>` only when you want a single target — see the [supported agents list](https://github.com/vercel-labs/skills#supported-agents).
-
-**Local development** (this repo):
+<details>
+<summary>Clone and install locally</summary>
 
 ```bash
 git clone https://github.com/sameer2006-s/nextjs-feature-arch-skill.git
@@ -63,74 +46,96 @@ cd nextjs-feature-arch-skill
 npx skills add . -y
 ```
 
----
+</details>
+
+## Usage
+
+1. Enable the skill **`nextjs-feature-architecture`** in your agent.
+2. Mention it in your prompt with your task.
+3. The agent outputs **topology → architecture → code** before implementing.
+
+```text
+Using nextjs-feature-architecture, add a comments feature with Prisma.
+```
+
+## What it enforces
+
+```mermaid
+flowchart LR
+  UI[UI / RSC] --> A[actions]
+  A --> S[services]
+  S --> R[repositories]
+  R --> DB[(DB / API / gRPC)]
+```
+
+| | |
+|---|---|
+| **Topologies** | Integrated · Separate-REST · Separate-gRPC · Hybrid |
+| **Reads** | Server Component → service → repository / RPC |
+| **Writes** | Client island → Server Action → service → repository / RPC |
+| **Defaults** | Server Components first · Zod at actions · `"use client"` at leaves only |
+
+## Backend modes
+
+| Mode | When | Domain rules live in |
+|------|------|----------------------|
+| **Integrated** | Prisma / Drizzle in repo | Next.js `services/` |
+| **Separate-REST** | External HTTP API | Backend |
+| **Separate-gRPC** | Connect + protobuf | Backend |
+| **Hybrid** | Mixed per feature | Per feature (one transport each) |
 
 ## Example prompts
 
-<details>
-<summary><strong>New feature</strong> (integrated backend)</summary>
+**New feature · integrated**
 
 ```text
 Using nextjs-feature-architecture, add a comments feature: list and create
-comments on a post. We use Prisma in this repo.
+comments on a post. We use Prisma.
 ```
 
-</details>
-
-<details>
-<summary><strong>New feature</strong> (Connect/gRPC)</summary>
+**New feature · Connect/gRPC**
 
 ```text
 Using nextjs-feature-architecture, add an item detail page with optional
-client refresh. Backend is Connect RPC; proto package @acme/api.
+client refresh. Connect RPC; proto package @acme/api.
 ```
 
-</details>
-
-<details>
-<summary><strong>Refactor</strong> (client-heavy page)</summary>
+**Refactor · client-heavy page**
 
 ```text
 Using nextjs-feature-architecture, refactor app/dashboard/page.tsx — it uses
 "use client" and useEffect fetch. Move to a server-first feature slice.
 ```
 
-</details>
-
----
-
 ## Repository layout
 
 ```
-SKILL.md                 # Agent entry point (start here)
-skill.json               # Package manifest
-rules/                   # Architecture, folders, TypeScript standards
-prompts/                 # Feature generation & refactor prompts
-templates/               # page, service, repository, schema stubs
-examples/                # End-to-end walkthrough
-docs/
-  topology.md            # Extended topology guide
-  performance.md         # RSC, caching, bundles
-  snippets/              # Code templates (loaded on demand)
+nextjs-feature-arch-skill/
+├── SKILL.md              ← agent entry (read first)
+├── skill.json
+├── rules/                architecture · folders · TypeScript
+├── prompts/              generate & refactor prompts
+├── templates/            page · service · repository · schema
+├── examples/             input → output walkthrough
+└── docs/
+    ├── topology.md
+    ├── performance.md
+    └── snippets/         REST · gRPC templates (on demand)
 ```
 
-The agent reads `SKILL.md` first and opens `docs/snippets/` only when the task needs REST, gRPC, or extra detail — keeping context small.
-
----
+The agent loads **`SKILL.md` only** up front; snippet docs open when the task needs them — smaller context, faster runs.
 
 ## How it works
 
-1. **Discovery** — The agent reads `name` and `description` from `SKILL.md`.
-2. **Activation** — Your prompt matches the skill (Next.js features, refactors, Server Actions, gRPC, etc.).
-3. **Execution** — The agent follows layered rules, outputs an architecture plan, then implements with the right topology.
+| Step | What happens |
+|------|----------------|
+| **Discovery** | Agent reads `name` + `description` from `SKILL.md` |
+| **Activation** | Your prompt matches Next.js feature / refactor work |
+| **Execution** | Topology detected → architecture doc → layered implementation |
 
----
+## Contributing
 
-## Contributing & license
+Contributions welcome. Keep `SKILL.md` under ~150 lines; put detailed templates in `docs/snippets/`.
 
-Contributions welcome. Keep `SKILL.md` under ~150 lines; add long content under `docs/snippets/`.
-
-| Resource | Link |
-|----------|------|
-| Maintainer checklist | [PUBLISHING.md](PUBLISHING.md) |
-| License | [MIT](LICENSE) |
+- [PUBLISHING.md](PUBLISHING.md) — maintainer checklist  
+- [LICENSE](LICENSE) — MIT
