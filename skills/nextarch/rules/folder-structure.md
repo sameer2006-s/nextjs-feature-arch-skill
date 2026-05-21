@@ -27,7 +27,8 @@ middleware.ts
 | Path | Rule |
 |------|------|
 | `app/` | Thin routes — no business logic, no direct DB/API/RPC |
-| `features/<name>/` | One domain per folder |
+| `features/<name>/` | One domain per folder (preferred for shared domain logic) |
+| `app/**/_components/` or route colocation | OK if repo already colocates UI next to routes — do not duplicate into `features/` unless logic is shared |
 | `features/<name>/components/` | Server Component by default |
 | `features/<name>/services/` | `<verb>-<entity>.service.ts` |
 | `features/<name>/schemas/` | Zod schemas + `z.infer` types |

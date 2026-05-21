@@ -1,0 +1,56 @@
+{
+  "skill_name": "nextarch",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Using nextarch, add a comments feature for blog posts: list comments on a post and let users submit new ones. We use Prisma and the App Router. Post page is app/posts/[id]/page.tsx.",
+      "expected_output": "Feature scope: Topology + Architecture before code; features/comments/ slice; server page; no useEffect fetch on page.",
+      "files": [],
+      "expectations": [
+        "Response includes ## Topology before substantial code blocks",
+        "Response includes ## Architecture with features/comments/ path",
+        "Does not recommend use client on the post page for initial comment loading",
+        "Mentions Server Action or actions/ for create comment mutation",
+        "Mentions Zod or schemas/ for validation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Using nextarch, refactor app/dashboard/page.tsx — it's a client component that useEffect-fetches stats from /api/dashboard. Move to server-first feature slice.",
+      "expected_output": "Feature scope plan; async server dashboard page; get-dashboard.service.ts; small client island only if needed.",
+      "files": [],
+      "expectations": [
+        "Response includes architecture or layer plan before implementation code",
+        "Proposes features/dashboard/ or similar feature folder",
+        "Does not keep use client on page.tsx for data fetching",
+        "Mentions service layer for the fetch logic",
+        "Mentions moving fetch off useEffect"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Using nextarch, add an item detail page at app/items/[id]/page.tsx with server-rendered data from Connect RPC (proto @acme/api). Users should be able to refresh item data on the client without full page reload.",
+      "expected_output": "Separate-gRPC; lib/grpc/clients.ts; ServiceResult; item.queries.ts bridge; hook does not import grpc client directly.",
+      "files": [],
+      "expectations": [
+        "States Separate-gRPC or gRPC topology",
+        "Mentions lib/grpc/clients.ts or single client registry",
+        "Mentions queries.ts or server action bridge for client refresh",
+        "Hook or TanStack queryFn does not import ApiClient directly",
+        "Mentions ServiceResult or success/error result shape"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Using nextarch, our post page already uses app/api/posts/[id] and a client component. Add a comment count badge next to the title — minimal change, don't restructure the whole app.",
+      "expected_output": "Patch or minimal Feature scope; extend existing API or add small server fetch; no full features/ tree unless justified; do not delete existing route without reason.",
+      "files": [],
+      "expectations": [
+        "States Patch or minimal scope — not full Greenfield skeleton with all seven sections",
+        "Does not mandate deleting app/api/posts without user-facing reason",
+        "Mentions adapting to existing layout or API",
+        "Does not propose big-bang features/ migration for entire app"
+      ]
+    }
+  ]
+}

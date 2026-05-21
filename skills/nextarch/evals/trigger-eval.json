@@ -4,7 +4,15 @@
     "should_trigger": true
   },
   {
+    "query": "use NextArch to add a comments feature with prisma on our app router post page",
+    "should_trigger": true
+  },
+  {
     "query": "add a comments feature with prisma, list + create on post pages, we're on app router",
+    "should_trigger": true
+  },
+  {
+    "query": "small change but move post fetch from useEffect to server component on app/posts/page.tsx",
     "should_trigger": true
   },
   {
@@ -32,11 +40,23 @@
     "should_trigger": true
   },
   {
+    "query": "fix typo on the submit button label on the login form",
+    "should_trigger": false
+  },
+  {
     "query": "fix tailwind spacing on the settings page hero section",
     "should_trigger": false
   },
   {
     "query": "write an express mongodb REST API for user profiles",
+    "should_trigger": false
+  },
+  {
+    "query": "we use trpc for all data already, add a post router with create and list",
+    "should_trigger": false
+  },
+  {
+    "query": "add apollo useQuery on the client to load the current user profile",
     "should_trigger": false
   },
   {

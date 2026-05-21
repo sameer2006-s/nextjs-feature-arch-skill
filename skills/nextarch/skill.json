@@ -1,0 +1,37 @@
+{
+  "name": "nextarch",
+  "version": "1.7.0",
+  "displayName": "NextArch",
+  "description": "NextArch — Next.js App Router feature slices, server-first loading, Zod, Server Actions, repositories, services (Prisma, Drizzle, REST, Connect/gRPC). useEffect refactors, vertical slices, TanStack bridges, hybrid DB+API. Not for copy/CSS-only, non-Next.js, or backend-only work.",
+  "entry": "SKILL.md",
+  "repository": "https://github.com/sameer2006-s/NextArch",
+  "license": "MIT",
+  "tags": [
+    "nextarch",
+    "nextjs",
+    "react",
+    "app-router",
+    "server-components",
+    "feature-sliced-design",
+    "architecture",
+    "typescript",
+    "zod",
+    "server-actions",
+    "connect-rpc",
+    "prisma",
+    "drizzle",
+    "vertical-slice"
+  ],
+  "lazyDocs": [
+    "rules/architecture.md",
+    "rules/folder-structure.md",
+    "rules/coding-standards.md",
+    "docs/brownfield.md",
+    "docs/escape-hatches.md",
+    "docs/topology.md",
+    "docs/performance.md",
+    "docs/snippets/core.md",
+    "docs/snippets/grpc.md",
+    "docs/snippets/auth-env.md"
+  ]
+}
