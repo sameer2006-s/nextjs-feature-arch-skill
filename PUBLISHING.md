@@ -17,7 +17,7 @@ skills/nextarch/
 
 - [ ] `name: nextarch` in `SKILL.md` frontmatter matches `skill.json`
 - [ ] `repository` URL is `https://github.com/sameer2006-s/NextArch`
-- [ ] README install uses `npx skills add sameer2006-s/NextArch --skill nextarch -y`
+- [ ] README install uses `npx skills add sameer2006-s/NextArch --skill nextarch`
 - [ ] No `skills/nextjs-feature-architecture/` folder
 - [ ] `.agents/` and `skills-lock.json` not committed
 
@@ -27,7 +27,7 @@ skills/nextarch/
 npx skills add . --list
 # → nextarch
 
-npx skills add . --skill nextarch -y
+npx skills add . --skill nextarch
 ```
 
 ## Tag release

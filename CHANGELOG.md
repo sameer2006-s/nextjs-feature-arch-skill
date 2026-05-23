@@ -8,7 +8,7 @@ Version in `skills/nextarch/skill.json`.
 
 - **Repository** renamed to [sameer2006-s/NextArch](https://github.com/sameer2006-s/NextArch) (was `nextjs-feature-arch-skill`)
 - **Skill id** is `nextarch` (was `nextjs-feature-architecture`)
-- Install: `npx skills add sameer2006-s/NextArch --skill nextarch -y`
+- Install: `npx skills add sameer2006-s/NextArch --skill nextarch`
 - Prompts: `Using nextarch` or `Using NextArch`
 
 ### Added

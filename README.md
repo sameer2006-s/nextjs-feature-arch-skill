@@ -2,7 +2,7 @@
 
 # ⚡ NextArch
 
-### Server-first Next.js App Router architecture for AI agents
+### Server-first Next.js App Router architecture Skill for AI agents
 
 <br />
 
@@ -45,7 +45,7 @@ Works with [Cursor](https://cursor.com), [Claude Code](https://code.claude.com),
 ## Install
 
 ```bash
-npx skills add sameer2006-s/NextArch --skill nextarch -y
+npx skills add sameer2006-s/NextArch --skill nextarch
 ```
 
 | Scope | Command |
