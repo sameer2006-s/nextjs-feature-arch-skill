@@ -2,6 +2,20 @@
 
 Version in `skills/nextarch/skill.json`.
 
+## [1.8.0] - 2026-05-25
+
+### Added
+
+- **Eval regression harness** — `npm run skill:check` (validate package, lazyDocs sync, version sync, trigger-eval lint)
+- [`scripts/skill-check.mjs`](scripts/skill-check.mjs) (single file) and `npm run skill:workspace` to scaffold `nextarch-workspace/`
+- [`.github/workflows/skill-check.yml`](.github/workflows/skill-check.yml) CI on push/PR
+- [`skills/nextarch/evals/README.md`](skills/nextarch/evals/README.md) — agent benchmark workflow and release gates
+- `benchmark.example.json` and `history.example.json` for skill-creator alignment
+
+### Changed
+
+- [PUBLISHING.md](PUBLISHING.md) — PR vs release eval gates
+
 ## [1.7.0] - 2026-05-22
 
 ### Breaking

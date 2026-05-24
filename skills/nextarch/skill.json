@@ -1,6 +1,6 @@
 {
   "name": "nextarch",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "displayName": "NextArch",
   "description": "NextArch — Next.js App Router feature slices, server-first loading, Zod, Server Actions, repositories, services (Prisma, Drizzle, REST, Connect/gRPC). useEffect refactors, vertical slices, TanStack bridges, hybrid DB+API. Not for copy/CSS-only, non-Next.js, or backend-only work.",
   "entry": "SKILL.md",

@@ -133,6 +133,8 @@ Using nextarch, refactor app/dashboard/page.tsx — it uses
 NextArch/
 ├── README.md
 ├── LICENSE
+├── package.json          # npm run skill:check
+├── scripts/
 └── skills/
     └── nextarch/
         ├── SKILL.md
@@ -155,6 +157,8 @@ The agent loads **`SKILL.md` only** up front; opens **`rules/`** and **`docs/`**
 ## Contributing
 
 Contributions welcome. Add skills under `skills/<name>/`; keep each `SKILL.md` under ~165 lines.
+
+Run `npm run skill:check` before opening a PR (see [PUBLISHING.md](PUBLISHING.md)).
 
 | Resource | Link |
 |----------|------|

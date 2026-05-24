@@ -1,0 +1,12 @@
+{
+  "name": "nextarch-skill-repo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "skill:check": "node scripts/skill-check.mjs",
+    "skill:workspace": "node scripts/scaffold-workspace.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

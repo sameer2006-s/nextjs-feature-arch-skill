@@ -1,0 +1,15 @@
+{
+  "started_at": "2026-05-25T00:00:00Z",
+  "skill_name": "nextarch",
+  "current_best": "v1.8.0-baseline",
+  "iterations": [
+    {
+      "version": "v1.8.0-baseline",
+      "parent": null,
+      "expectation_pass_rate": null,
+      "grading_result": "pending",
+      "is_current_best": true,
+      "notes": "Fill expectation_pass_rate after first agent eval run in nextarch-workspace/iteration-1"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "skill_name": "nextarch",
+  "iteration": "iteration-1",
+  "evals": [
+    {
+      "eval_id": 0,
+      "prompt": "Using nextarch, add a comments feature...",
+      "expectation_pass_rate": 1.0,
+      "expectations_passed": 5,
+      "expectations_total": 5
+    }
+  ],
+  "aggregate_pass_rate": 1.0
+}

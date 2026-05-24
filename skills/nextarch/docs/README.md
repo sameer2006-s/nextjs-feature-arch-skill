@@ -12,4 +12,4 @@
 
 Rules: [rules/](../rules/).
 
-Maintainer evals: [evals/](../evals/).
+Maintainer evals: [evals/README.md](../evals/README.md) (CI: `npm run skill:check`).
